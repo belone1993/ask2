@@ -1,2 +1,1 @@
-Git is a distributed version control system.
-Git is free software distributed under the GPL.
+很久没在git上更新了，这次3.3版本改动很大，增加了很多不错的功能，可以挨个点击后台菜单功能查看
