@@ -1,0 +1,48 @@
+<!--{template header}-->
+<section class="am-container" >
+    <form class="am-form" method="post" action="{url user/login}">
+        <br/>
+        <input class="am-form-field am-input-lg" name="username" id="username" type="text" placeholder="请输入账号">
+        <br/>
+
+        <input class="am-form-field am-input-lg" type="password" name="password" id="password" placeholder="密码">
+        <br/>
+        <!--{if $setting['code_login']}-->
+         <input type="text" id="code" name="code" onblur="check_code();" class="am-form-field" placeholder="输入你的验证码">
+              <p>
+              
+          
+       <span class="verifycode"><img  src="{url user/code}" onclick="javascript:updatecode();" id="verifycode"></span>
+    
+      <span id="codetip"></span>
+       <a class="changecode" href="javascript:updatecode();">&nbsp;看不清?</a>
+       </p>
+        <!--{/if}-->
+
+
+                            <input type="hidden" name="usersid" value='{$_SESSION["userid"]}'/>
+        <button type="submit"  name="submit" class="am-btn am-btn-primary am-btn-block">登陆</button>
+  <input type="hidden" name="forward" value="{$forward}"/>
+    </form>
+    <p class="am-cf"><a href="{url user/register}" class="am-fl">注册</a> <a href="{url user/getpass}" class="am-fr">忘记密码</a></p>
+   
+ <p>
+         <!--{if $setting['sinalogin_open']}-->
+         
+                <span><a href="{SITE_URL}plugin/sinalogin/index.php"><img src="{SITE_URL}css/default/sina_login_btn.png" alt="Connect_logo_3.png"></a></span>
+                <!--{/if}-->
+                <!--{if $setting['qqlogin_open']}-->
+                <span><a href="{SITE_URL}plugin/wapqqlogin/index.php"><img src="{SITE_URL}css/default/qq_login_btn.png" alt="Connect_logo_3.png"></a></span>
+              
+                <!--{/if}-->
+                
+                 <!--{if $wxbrower}-->
+                  <span><a href="{SITE_URL}?plugin_weixin/wxauth"><img src="{SITE_URL}css/default/wx.jpg" style="width:24px;height:24px;margin-left:10px;" alt="微信登录"></a></span>
+              
+                 <!--{/if}-->
+                    </p>
+                
+                
+  
+   </section>
+   <!--{template footer}-->

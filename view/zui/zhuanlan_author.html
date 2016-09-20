@@ -1,0 +1,229 @@
+<!--{template public_zhuanlan_header}-->
+<div class="main receptacle ">
+    <div class="user-about text-center column-about">
+
+<img src="{$member['avatar']}" class="img-circle avatar" width="85" height="85">
+<p class="text-center font-bold mar-t-1">
+   {$member['username']}
+</p>
+
+    <p class="text-center mar-t-1">
+        {$member['signature']}
+    </p>
+
+  
+    
+      <!--{if $is_followed=='1'}-->
+
+                   
+<a href="javascript:void(0)"  onclick="attentto_user($member['uid'])" id="attenttouser_{$member['uid']}"  class="btn btn-green mar-t-1 button_followed">取消关注</a>
+                    <!--{else}-->
+
+
+  <a href="javascript:void(0)"  onclick="attentto_user($member['uid'])" id="attenttouser_{$member['uid']}" class="btn btn-green mar-t-1  button_attention">关注作者</a>
+                   
+
+                     <!--{/if}-->
+                     
+                     
+    <p class="mar-t-1 text-center">
+       <span class="mar-r-03">{$member['followers']}</span>  人关注
+    </p>
+
+        <div class="tags " >
+            <span class="tag  current"  id="all"><b>全部</b>{$rownum}</span>
+           <span  class="ng-scope">
+           <!--{loop $catags $ctag}-->
+       <span  class="tag  "  id="{$ctag['id']}" ><b class="ng-binding" >{$ctag['name']}</b>{$ctag['num']}</span>
+          
+             <!--{/loop}-->
+      </span>
+
+        </div>
+    </div>
+<div class="items-container ng-scope ui-infinite">
+    <div class="block-title ng-scope" >
+        <span ><span class="ng-binding ng-scope">最新文章</span></span>
+        <!-- ngIf: help -->
+    </div>
+</div>
+    <ul class="items" >
+  <!--{loop $topiclist $index $topic}-->      
+        <li class="item ng-isolate-scope item-with-title-img" >
+        <article class="hentry">
+            <a href="{url article-$topic['id']}" class="entry-link">
+                <h1 class="entry-title ng-binding">{$topic['title']}</h1>
+
+              <div class="title-img-container " >
+                <div class="title-img-preview" >
+                
+                 {eval $index=strstr($topic['image'],'http');}
+
+                       {if $index }
+
+                            
+
+                            
+ <img src="{$topic['image']}" class="img-rounded" width="240px" height="153px">
+                            {else}
+
+                        
+ <img src="{SITE_URL}{$topic['image']}" class="img-rounded" width="240px" height="153px">
+                            
+
+                            {/if}
+                   
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+
+
+
+                <section class="entry-summary">
+                    <p class="ng-isolate-scope">{eval echo cutstr(strip_tags(str_replace('&nbsp;','',$topic['describtion'])),110,'...');}
+                        <span class="read-all">查看全文<i class="icon-ic_unfold"></i></span>
+                    </p>
+                </section>
+            </a>
+
+            <footer>
+                <div class="entry-meta">
+                     <!--{if $user['grouptype']==1||$user['uid']==$topic['authorid']}-->
+                         <a target="_blank" title="编辑文章" href="{url user/editxinzhi/$topic['id']}">编辑</a> 
+                             <a target="_self" title="删除文章" href="{url user/deletexinzhi/$topic['id']}">删除</a> 
+                          <!--{/if}-->     
+                    <time    class="published ng-binding ng-isolate-scope hover-title">{$topic['viewtime']}</time>
+
+                </div>
+
+              <div class="entry-func ng-scope">
+                <a href="{url article-$topic['id']}" class="vote-num ng-binding" >{$topic['views']}<span> 浏览</span></a>
+
+            </div>
+
+
+            </footer>
+
+
+        </article>
+    </li>
+    
+  <!--{/loop}-->
+    
+    
+    </ul>
+    <div class="posts-end">
+        <i class="icon icon-meh font-18 text-success icon-end"></i>
+    </div>
+</div>
+<script>
+var pages={$pages};
+var curr_cid='all';
+var num = 1;
+var muid='{$member['uid']}';
+String.prototype.replaceAll = function (str1,str2){
+	var str = this; 
+	var result = str.replace(eval("/"+str1+"/gi"),str2);
+	return result;
+	}
+
+/*关注用户*/
+function attentto_user(uid) {
+    if (g_uid == 0) {
+        login();
+    }
+    $.post(g_site_url + "index.php?user/attentto", {uid: uid}, function(msg) {
+        if (msg == 'ok') {
+            if ($("#attenttouser_"+uid).hasClass("button_attention")) {
+                $("#attenttouser_"+uid).removeClass("button_attention");
+                $("#attenttouser_"+uid).addClass("button_followed");
+                $("#attenttouser_"+uid).html("取消关注");
+            } else {
+                $("#attenttouser_"+uid).removeClass("button_followed");
+                $("#attenttouser_"+uid).addClass("button_attention");
+                $("#attenttouser_"+uid).html("关注作者");
+            }
+        }
+    });
+}
+$(".tags .tag").click(function(){
+	 num = 1;
+	$(".items").html("");
+	$(".tag").removeClass("current");
+	$(this).addClass("current");
+	var cid=$(this).attr("id");
+	curr_cid=cid;
+	getlist(cid,muid,1);
+});
+
+function getlist(cid,uid,pageindex){
+	{if $setting['seo_on']=='1'}
+	var query='';
+	{else}
+	var query='?';
+	{/if}
+	 $.ajax({
+	        url: "{SITE_URL}?topic/getbycatidanduid/"+uid+"/"+cid+"/"+pageindex,
+	        dataType: 'json',
+	        success: function(data) {
+	        	
+	        
+	        	
+	        	for(var i=0;i<data.length;i++){
+	        		  var tpl='<li class="item ng-isolate-scope item-with-title-img" >     <article class="hentry">       <a href="#topicurl" class="entry-link">            <h1 class="entry-title ng-binding">#title</h1>     <div class="title-img-container " >     <div class="title-img-preview" >  <img src="#image" class="img-rounded" width="240px" height="153px">        </div>       </div>            <section class="entry-summary">              <p class="ng-isolate-scope">#describtion                      <span class="read-all">查看全文<i class="icon-ic_unfold"></i></span>                </p>              </section>        </a>         <footer>             <div class="entry-meta">                 #admincp                    <time    class="published ng-binding ng-isolate-scope hover-title">#viewtime</time>              </div>             <div class="entry-func ng-scope">              <a href="#topicurl" class="vote-num ng-binding" >#views<span> 浏览</span></a>           </div>          </footer>      </article>   </li>';
+	        		  tpl=tpl.replaceAll("#topicurl",g_site_url + '' + query + 'article-'+data[i].id+".html");
+	        		  tpl=tpl.replaceAll("#title",data[i].title);
+	        		
+	        		  if(data[i].image.indexOf('http')!=-1){
+	        			  tpl=tpl.replaceAll("#image",data[i].image);
+	        		  }else{
+	        			  tpl=tpl.replaceAll("#image",g_site_url+data[i].image);
+	        		  }
+	        	      <!--{if $user['grouptype']==1||$user['uid']==$topic['authorid']}-->
+	        	      var tmpadmincp='<a target="_blank" title="编辑文章" href="'+g_site_url+ '' + query +'user/editxinzhi/'+data[i].id+'">编辑</a> '+'<a target="_self" title="删除文章" href="'+g_site_url+ '' + query +'user/deletexinzhi/'+data[i].id+'">删除</a>';
+	        	      tpl=tpl.replaceAll("#admincp",tmpadmincp);
+	        	      <!--{else}-->  
+	        	      tpl=tpl.replaceAll("#admincp",'');
+                       <!--{/if}-->  
+                       
+	        		  tpl=tpl.replaceAll("#describtion",data[i].describtion);
+	        		  tpl=tpl.replaceAll("#viewtime",data[i].viewtime);
+	        		  tpl=tpl.replaceAll("#views",data[i].views);
+	        		 
+	        		
+	        		
+	        		  $(".items").append(tpl);
+	        	}
+	           //#topicurl #title #image #describtion   #viewtime #views
+	         
+	           
+	           
+	          
+	           
+	        }
+	    });
+}
+$(document).ready(function(){
+    var range = 50;             //距下边界长度/单位px
+    var elemt = 500;           //插入元素高度/单位px
+    var maxnum = pages;            //设置加载最多次数
+   
+    var totalheight = 0;
+    var main = $("#content");                     //主体元素
+    $(window).scroll(function(){
+        var srollPos = $(window).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)
+
+
+        totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+        if(($(document).height()-range) <= totalheight  && num != maxnum) {
+        	num++;
+        	getlist(curr_cid,muid,num);
+            
+        }
+    });
+});
+</script>
+<!--{template public_zhuanlan_footer}-->

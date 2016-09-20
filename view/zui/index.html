@@ -1,0 +1,404 @@
+<!--{template header}-->
+<!--{template banner}-->
+<!--内容部分--->
+<div class="content-body">
+<div class="container  ">
+
+<div class="row">
+
+<!--左侧分类-->
+<div class="col-sm-2">
+    <ul class="sliderNav_list nav nav-primary mar-t-05">
+    
+      <!--{eval $categorylist=$this->fromcache('categorylist');}-->
+                <!--{loop $categorylist $findex  $category1}-->
+                 <!--{if $findex<5}-->
+                
+        <li>
+        <div class="row">
+            <div class="nav_title clearfix col-sm-12">
+
+                <i class="icon icon-list pull-left text-success"> 
+                <span>
+             <a target="_blank" title="{$category1['name']}" href="{url category/view/$category1['id']}">{$category1['name']}</a>
+                </span></i> 
+                <i class="text-success icon icon-arrow-right text-right pull-right"></i>
+            </div>
+        
+       
+        </div>
+       
+            <div class="nav_middle clearfix">
+
+  <!--{loop $category1['sublist'] $index $category2}-->
+                            <!--{if $index<6}-->
+                             <span> <a href="{url category/view/$category2['id']}">{$category2['name']}</a></span>
+                           
+                            <!--{/if}-->
+                            <!--{/loop}-->
+               
+
+            </div>
+            <div class="nav_footer hide clearfix">
+
+ <!--{loop $category1['sublist'] $index $category2}-->
+                            <!--{if $index>6}-->
+                             <span> <a href="{url category/view/$category2['id']}">{$category2['name']}</a></span>
+                           
+                            <!--{/if}-->
+                            <!--{/loop}-->
+               
+               
+              
+
+
+            </div>
+            <hr>
+        </li>
+          <!--{/if}-->
+        <!--{/loop}--> 
+<li>
+
+  <div class="row">
+            <div class="nav_title clearfix col-sm-12">
+
+                <i class="icon icon-list pull-left text-success"> 
+                <span>
+             <a target="_blank" title="更多分类" href="{url category/view/all}">更多</a>
+                </span></i> 
+                <i class="text-success icon icon-arrow-right text-right pull-right"></i>
+            </div>
+        
+       
+        </div>
+</li>
+    </ul>
+
+</div>
+<!--最新提问--->
+<div class="col-sm-7 mar-t-05">
+  
+<h2 class="pull-left">等你解答</h2>
+<a href="{url category/view/all/1}" class="pull-right">
+更多</a>
+    <hr class="clear">
+    <ul class="main_con_qiangda_list clearfix">
+     <!--{eval $nosolvelist=$this->fromcache('nosolvelist');}-->
+                <!--{loop $nosolvelist $index $question}-->
+                
+        <li>
+            <a target="_blank" href="{url question/view/$question['id']}" title="{$question['title']}">
+                <div class="left">{$question['answers']}<br>回答</div>
+                <div class="right">
+                    <p class="otw text-nowrap ">{$question['title']}</p>
+                    <span>{$question['format_time']}</span>
+                </div>
+            </a>
+        </li>
+         <!--{/loop}-->
+
+      
+
+    </ul>
+    
+    <!-- 高悬赏 -->
+
+<h2 class="pull-left">重金求解</h2>
+<a href="{url category/view/all/4}" class="pull-right">
+更多</a>
+    <hr class="clear">
+    <ul class="main_con_qiangda_list clearfix">
+    <!--{eval $nosolvelist=$this->fromcache('rewardlist');}-->
+                <!--{loop $nosolvelist $index $question}-->
+                
+        <li>
+            <a target="_blank" href="{url question/view/$question['id']}" title="{$question['title']}">
+                <div class="left">{$question['answers']}<br>回答</div>
+                <div class="right">
+                    <p class="otw text-nowrap "> <i class="icon icon-dollar text-danger mar-r-03">{$question['price']}</i>{$question['title']}</p>
+                    <span>{$question['format_time']}</span>
+                </div>
+            </a>
+        </li>
+         <!--{/loop}-->
+
+      
+
+    </ul>
+</div>
+<!--右侧栏目-->
+<div class="col-lg-3">
+    <!--最新通知公告-->
+    <div class="panel panel-success mar-t-05">
+        <div class="panel-heading"><i class="icon icon-bell-alt text-success"></i><span class="mar-ly-1">最新通知</span>
+            <a href="{url note/list}" class="pull-right">
+                更多
+            </a>
+        </div>
+        <div class="panel-body">
+            <ul class="nav right-ul">
+                <!--{eval $notelist=$this->fromcache('notelist');}-->
+ <!--{loop $notelist $nindex $note}-->
+       <li class="b-b-line">   <a target="_blank" title="{$note['title']}" {if $note['url']}href="{$note['url']}"{else}href="{url note/view/$note['id']}"{/if}>
+      <i class="quan"></i>  {eval echo cutstr({$note['title']},40,'');}
+       </a></li>
+        
+       
+       
+        <!--{/loop}-->
+               
+
+
+            </ul>
+
+        </div>
+
+
+    </div>
+    <!--公告结束-->
+
+    <!--热门问题一周热点-->
+
+    <div class="panel panel-success ">
+        <div class="panel-heading"><i class="icon icon-shield text-success"></i><span class="mar-ly-1">热门问题</span>
+            <a href="{url c-all}" class="pull-right">
+                更多
+            </a>
+        </div>
+        <div class="panel-body">
+            <ul class="nav right-ul">
+
+  <!--{eval $attentionlist=$this->fromcache('attentionlist');}-->
+                    <!--{loop $attentionlist $index $question}-->
+                    
+                    <li class="b-b-line">
+                       <i class="quan"></i>
+                        <a  title="{$question['title']}" target="_blank" href="{url question/view/$question['id']}">{eval echo cutstr($question['title'],40,'');}<i class="icon icon-question text-success"></i></a>
+                    </li>
+                    <!--{/loop}-->
+               
+
+            </ul>
+
+        </div>
+
+
+    </div>
+    <!--一周热点结束-->
+
+  
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+<!--专家和积分排行-->
+<div class="expert-panel mar-b-1">
+    <div class="container">
+        <div class="row bg-silver">
+            <div class="col-sm-9 expert-list mar-t-05">
+              <div class="title font-18">
+                        <i class="icon icon-user text-danger mar-y-05 font-18"></i> 专家推荐
+                      <span class="mar-l-05 text-danger">以团队之力，帮助更多人</span>
+                    </div>
+                 <div class="row mar-t-1">
+                   <!--{eval $expertlist=$this->fromcache('expertlist');}-->
+                    <!--{loop $expertlist $expert}-->
+                       <div class="col-sm-3 text-center user-info">
+                        <div class="">
+                            <img width="100" height="100" class="hand img-circle experter" src="{$expert['avatar']}">
+                            <a href="{url question/add/$expert['uid']}" class="btnask  btn btn-danger">对Ta提问</a>
+                        </div>
+                         
+                           <p class="bold font-18 mar-t-1">{$expert['username']}<img class="mar-l-05" src="{SITE_URL}css/dist/css/images/vgr.png" ></p>
+                                 <p>推荐/回答:{$expert['answers']}</p>
+                                 <p>擅长 : 
+                                <!--{loop $expert['category'] $category}-->
+             <a target="_blank" href="{url category/view/$category['cid']}">{$category['categoryname']}</a>
+                <!--{/loop}-->
+                                 </p>
+                       </div>
+                           <!--{/loop}-->
+                       
+                 </div>
+            </div>
+            <div class="col-sm-3 ">
+                <!--财富榜-->
+                <div class="panel-caifuban">
+                    <div class="title">
+                        <i class="icon icon-yen text-success mar-ly-05"></i> 财富榜
+                        <hr>
+                    </div>
+                    
+                    <ol class="widget-top10">
+                     <!--{eval $weekuserlist=$this->fromcache('alluserlist');}-->
+                <!--{loop $weekuserlist $index $alluser}-->
+                        <li class="text-muted b-b-line">
+                            <img onmouseover="pop_user_on(this, '{$alluser[uid]}', 'img');"  onmouseout="pop_user_out();"  class="avatar-32 img-circle hand" src="{$alluser['avatar']}">
+                            <a href="{url user/space/$alluser['uid']}" class="ellipsis">{$alluser['username']}</a>
+                            <span class="text-muted pull-right">{$alluser['credit2']} 金币</span>
+                        </li>
+                       
+  <!--{/loop}-->
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<!--专家和排行榜结束标记--->
+<!---最新动态和采纳回答--->
+<div class="answer-section bg-white ">
+
+    <div class="container">
+
+        <div class="row">
+        <!---网站动态--->
+        <div class="col-sm-6 mar-t-05 doing">
+        <div class=" mar-b-1 doing-title">
+            <i class="text-success icon icon-info-sign">
+                <span class=" f-weight">最新动态</span>
+            </i>
+
+        </div>
+        <hr class="clearfix">
+        <div class="clearfix">
+        <ul class="nav">
+             <!--{eval $doinglist=$this->fromcache('doinglist');}-->
+  <!--{loop $doinglist $doing}-->
+        <li>
+            <div class="row">
+                <div class="col-sm-1">
+                    <a class="aw-user-name hidden-xs" data-id="7300"
+                       href="{url user/space/$doing['authorid']}" rel="nofollow"><img
+                        onmouseover="pop_user_on(this, '{$doing[authorid]}', 'img');"  onmouseout="pop_user_out();"    src="{$doing['avatar']}" alt="{$doing['author']}"></a>
+
+                </div>
+                <div class="col-sm-9">
+                    <h4>
+                        <a href="{url question/view/$doing['questionid']}">{$doing['title']}</a>
+                    </h4>
+
+                    <p>
+                        <a href="{url user/space/$doing['authorid']}" class="aw-user-name"
+                           data-id="26025">{$doing['author']}</a> <span
+                            class="text-color-999">{$doing['actiondesc']} • {$doing['attentions']}人关注 • {$doing['answers']}  个回复 • {$doing['views']} 次浏览 • {$doing['question_time']}			</span>
+                        <span class="text-color-999 related-topic collapse"> • 来自相关话题</span>
+                    </p>
+
+                   
+                </div>
+                <div class="col-sm-2">
+
+                    <p>贡献</p>
+
+                    <div>
+                      <!--{loop $doing['followerlist'] $follow}-->
+                        <a class="ms_username" data-id="8609" href="{url user/space/$follow['followerid']}"
+                           rel="nofollow"><img class="mar-b-05" onmouseover="pop_user_on(this, '{$follow[followerid]}', 'img');"  onmouseout="pop_user_out();" src="{$follow['avatar']}" alt="{$follow['follower']}"></a>
+                      
+                                                <!--{/loop}-->
+
+                    </div>
+
+                </div>
+            </div>
+            <hr>
+
+        </li>
+
+   <!--{/loop}-->
+
+        </ul>
+        </div>
+        </div>
+
+
+        <!--已经解决的问题-->
+
+        <div class="col-sm-6 mar-t-05">
+                <h2>最新已解决</h2>
+  <hr class="clear">
+            <ul class="main_con_qiangda_list clearfix">
+               
+                 <!--{eval $solvelist=$this->fromcache('solvelist');}-->
+                <!--{loop $solvelist $index $question}-->
+                <li>
+                    <a target="_blank" href="{url question/view/$question['id']}" title="{$question['title']}">
+                        <div class="left">{$question['answers']}<br>回答</div>
+                        <div class="right">
+                            <p class="otw text-nowrap ">{$question['title']}</p>
+                            <span>{$question['format_time']}</span>
+                        </div>
+                    </a>
+                </li>
+
+                <!--{/loop}-->
+
+            </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+<!---最新回答和采纳回答结束标记--->
+
+ {if 1==$setting['hot_on'] }
+<!--热门文章-->
+ <!--{eval $hottopiclist=$this->fromcache('hottopiclist');}-->
+            <!--{if $hottopiclist}-->
+            
+<div class="section-hot-article ">
+<div class="container  clearfix " >
+    <h3 class="pull-left mar-t-03" >
+        热门文章
+    </h3>
+   
+    <a class="pull-right mar-t-05" href="{url topic/hotlist}">
+        更多<i class="icon icon-link text-success mar-ly-05"></i>
+    </a>
+     <hr class="clearfix">
+    <div class="cards clearfix">
+ <!--{loop $hottopiclist $index $hottopic}-->
+        <div class="col-md-4 col-sm-6 col-lg-3">
+            <div class="card">
+               {eval $index=strpos($hottopic['image'],'http');}
+                       {if $index==0 }
+                            
+                             <img src="{$hottopic['image']}" class="hotimg" alt="{$hottopic['title']}">
+                            {else}
+                            <img src="{SITE_URL}{$hottopic['image']}"  class="hotimg"  alt="{$hottopic['title']}">
+                            
+                            {/if}
+                <span class="caption">{eval echo cutstr(str_replace("&nbsp;","",strip_tags($hottopic['describtion'])),60,'...');}</span>
+                <a href="{url topic/getone/$hottopic['id']}" class="card-heading"><strong>{$hottopic['title']}</strong></a>
+                <div class="card-actions">
+                    <a href="javascript:void(0);"><i class="icon icon-eye-open text-danger"></i> {$hottopic['views']}</a>
+                    <span class="text-muted pull-right">&nbsp;&nbsp;{$hottopic['viewtime']}</span>
+                </div>
+            </div>
+        </div>
+       
+        <!--{/loop}-->
+    </div>
+</div>
+</div>
+  <!--{/if}-->
+<!---热门文章结束标记-->
+
+{/if}
+
+
+<!--{template footer}-->

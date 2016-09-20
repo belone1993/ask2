@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+  <!--{eval global $starttime,$querynum;$mtime = explode(' ', microtime());$runtime=number_format($mtime[1] + $mtime[0] - $starttime,6); $setting=$this->setting;$user=$this->user;$headernavlist=$this->nav;$regular=$this->regular;$toolbars="'".str_replace(",", "','", $setting['editor_toolbars'])."'";}-->
+<!--{eval $statistics=$this->fromcache('statistics');}-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--{if isset($seo_title)}-->
+        <title>{$seo_title}</title>
+        <!--{else}-->
+        <title><!--{if $navtitle}-->{$navtitle} - <!--{/if}-->{$setting['site_name']}</title>
+        <!--{/if}-->
+        <!--{if isset($seo_description)}-->
+        <meta name="description" content="{$seo_description}" />
+        <!--{else}-->
+        <meta name="description" content="{$setting['site_name']}" />
+        <!--{/if}-->
+        <meta name="keywords" content="{$seo_keywords}" />
+        <meta name="generator" content="Ask2 {ASK2_VERSION} {ASK2_RELEASE}" />
+        <meta name="author" content="Ask2 Team" />
+        <meta name="copyright" content="2016 ask2.cn" />
+        <meta name="robots" content="index, follow">
+        <meta name="googlebot" content="index, follow" />
+      <meta name="applicable-device" content="pc"/>
+      <meta http-equiv='Cache-Control' content='no-transform'/>
+      
+    <link href="{SITE_URL}css/dist/css/normalize.css" rel="stylesheet">
+    <!-- zui -->
+   
+    <link href="{SITE_URL}css/dist/css/zui.min.css" rel="stylesheet">
+
+    <link href="{SITE_URL}dist/css/animate.min.css" rel="stylesheet">
+
+    <link href="{SITE_URL}css/dist/css/main.css" rel="stylesheet">
+    <!-- jQuery -->
+<script src="{SITE_URL}js/jquery-1.11.3.min.js"></script>
+
+<!-- ZUI Javascript组件 -->
+<script src="{SITE_URL}css/dist/js/zui.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="{SITE_URL}css/dist/lib/ieonly/html5shiv.js"></script>
+    <script src="{SITE_URL}css/dist/lib/ieonly/respond.js"></script>
+    <![endif]-->
+
+        <script type="text/javascript">var g_site_url = "{SITE_URL}";
+            var g_site_name = "{$setting['site_name']}";
+            var g_prefix = "{$setting['seo_prefix']}";
+            var g_suffix = "{$setting['seo_suffix']}";
+            var g_uid = {$user['uid']};
+            </script>
+</head>
+<body class="bg-white">
+<!--[if lt IE 8]>
+<div class="alert alert-danger">您正在使用 <strong>过时的</strong> 浏览器. 是时候 <a href="http://browsehappy.com/">更换一个更好的浏览器</a>
+    来提升用户体验.
+</div>
+<![endif]-->
+<div class="zl-header">
+
+</div>

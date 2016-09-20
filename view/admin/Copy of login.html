@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>管理员后台登陆</title>
+    <link href="{SITE_URL}css/dist/css/normalize.css" rel="stylesheet">
+    <!-- zui -->
+    <link href="{SITE_URL}css/dist/css/zui.min.css" rel="stylesheet">
+    <link href="{SITE_URL}css/dist/css/animate.min.css" rel="stylesheet">
+    <link href="{SITE_URL}css/dist/css/custom.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="{SITE_URL}css/dist/lib/ieonly/html5shiv.js"></script>
+    <script src="{SITE_URL}css/dist/lib/ieonly/respond.js"></script>
+    <![endif]-->
+
+</head>
+<body  >
+<!--[if lt IE 8]>
+<div class="alert alert-danger">您正在使用 <strong>过时的</strong> 浏览器. 是时候 <a href="http://browsehappy.com/">更换一个更好的浏览器</a> 来提升用户体验.</div>
+<![endif]-->
+<div class="container " >
+    <h1 class="text-center login_title bounceIn animated ">管理员后台登陆</h1>
+    <form class="form-horizontal slideInLeft animated " role="form" id="logindev" action="index.php?admin_main/login{$setting['seo_suffix']}" method="post">
+
+
+
+        <div class="form-group">
+            <label class="col-md-2 control-label ">管理员帐号</label>
+            <div class="col-md-4">
+                <input type="text" id="username" name="username" value="{$user['username']}" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label ">管理员密码</label>
+            <div class="col-md-4">
+                <input type="password" name="password" class="form-control">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" name="submit" id="submit" class="btn btn-info btn-block zui_text_white " value="登陆" data-loading="稍候...">
+            </div>
+        </div>
+    </form>
+    <div class="footer text-center zui_text_white  bounceInUp animated">
+        Powered by ASK2 3.0 © 2016-2025 ASK2.
+
+    </div>
+</div>
+
+<!-- jQuery (ZUI中的Javascript组件依赖于jQuery) -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- ZUI Javascript组件 -->
+<script src="{SITE_URL}css/dist/js/zui.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>
